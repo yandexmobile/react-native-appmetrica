@@ -4,7 +4,8 @@
   "description": "React Native bridge to the AppMetrica on both iOS and Android",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm run test:eslint",
+    "test:eslint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/doochik/react-native-appmetrica#readme",
   "peerDependencies": {
     "react-native": ">=0.45"
+  },
+  "devDependencies": {
+    "eslint": "^4.7.0"
   }
 }
