@@ -223,6 +223,10 @@
 		59FB35CC1F6FA64700A6608F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+                    "$(PROJECT_DIR)/../../../../ios",
+                    "$(PROJECT_DIR)/../../../../ios/Frameworks",
+                );
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -232,6 +236,10 @@
 		59FB35CD1F6FA64700A6608F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+                    "$(PROJECT_DIR)/../../../../ios",
+                    "$(PROJECT_DIR)/../../../../ios/Frameworks",
+                );
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -257,6 +265,7 @@
 				59FB35CD1F6FA64700A6608F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
