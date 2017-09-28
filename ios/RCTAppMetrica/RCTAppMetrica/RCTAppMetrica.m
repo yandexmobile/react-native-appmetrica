@@ -22,4 +22,8 @@ RCT_EXPORT_METHOD(reportEvent:(NSString *)message parameters:(nullable NSDiction
     [YMMYandexMetrica reportEvent:message parameters:params onFailure:NULL];
 }
 
+RCT_EXPORT_METHOD(reportError:(NSString *)message reason:(NSString *)reason) {
+    NSException *exception = [[NSException alloc] initWithName:message reason:reason userInfo:nil];
+    [YMMYandexMetrica reportError:message exception:exception onFailure:NULL];
+}
 @end
