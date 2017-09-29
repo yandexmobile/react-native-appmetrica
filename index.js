@@ -19,4 +19,13 @@ export default {
     reportEvent(message, params = null) {
         AppMetrica.reportEvent(message, params);
     },
+
+    /**
+     * Sends error with reason.
+     * @param {string} error
+     * @param {object} reason
+     */
+    reportError(error, reason) {
+        AppMetrica.reportError(error, reason);
+    },
 };
