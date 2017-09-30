@@ -38,4 +38,7 @@ AppMetrica.activateWithApiKey('...KEY...');
 // Sends a custom event message and additional parameters (optional).
 AppMetrica.reportEvent('My event');
 AppMetrica.reportEvent('My event', { foo: 'bar' });
+
+// Send a custom error event
+AppMetrica.reportError('My error');
 ```
