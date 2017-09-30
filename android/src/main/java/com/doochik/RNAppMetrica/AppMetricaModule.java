@@ -1,4 +1,4 @@
-package com.aandrosov.AppMetrica;
+package com.doochik.RNAppMetrica;
 
 import android.app.Activity;
 import android.app.Application;
