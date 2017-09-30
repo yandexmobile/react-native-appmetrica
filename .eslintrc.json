@@ -1,6 +1,8 @@
 {
     "extends": [
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:flowtype/recommended",
+      "plugin:react/recommended"
     ],
     "rules": {
         "array-bracket-spacing": ["error", "always"],
@@ -21,14 +23,51 @@
         "object-curly-spacing": ["error", "always"],
         "quotes": ["error", "single"],
         "semi": ["error", "always" ],
-        "space-infix-ops": "error"
+        "space-infix-ops": "error",
+
+        "react/jsx-key": "error",
+        "react/jsx-no-bind": ["error", {
+          "ignoreRefs": true
+        }],
+        "react/no-unused-prop-types": "error",
+        "react/prefer-es6-class": "error",
+        "react/prop-types": [
+          "error", {
+            "ignore": [
+              "children",
+              "dispatch"
+            ]
+          }
+        ],
+
+        "react-native/no-inline-styles": "error",
+        "react-native/no-unused-styles": "error",
+        "react-native/split-platform-components": "warn"
     },
     "env": {
         "es6": true,
         "node": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
-        "ecmaVersion": 6,
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "sourceType": "module"
-    }
+    },
+    "settings": {
+      "flowtype": {
+        "onlyFilesWithFlowAnnotation": true
+      },
+      "react": {
+        "pragma": "React",
+        "version": "16.0.0"
+      }
+    },
+    "plugins": [
+      "flowtype",
+      "react",
+      "react-native"
+    ]
 }

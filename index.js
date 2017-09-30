@@ -1,3 +1,5 @@
+// @flow
+
 import { NativeModules } from 'react-native';
 const { AppMetrica } = NativeModules;
 
@@ -7,7 +9,7 @@ export default {
      * Starts the statistics collection process.
      * @param {string} apiKey
      */
-    activateWithApiKey(apiKey) {
+    activateWithApiKey(apiKey: string) {
         AppMetrica.activateWithApiKey(apiKey);
     },
 
@@ -16,7 +18,7 @@ export default {
      * @param {string} message
      * @param {object} [params=null]
      */
-    reportEvent(message, params = null) {
+    reportEvent(message: string, params: ?Object = null) {
         AppMetrica.reportEvent(message, params);
     },
 
@@ -25,7 +27,7 @@ export default {
      * @param {string} error
      * @param {object} reason
      */
-    reportError(error, reason) {
+    reportError(error: string, reason: Object) {
         AppMetrica.reportError(error, reason);
     },
 };
