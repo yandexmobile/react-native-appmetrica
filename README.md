@@ -14,4 +14,28 @@ React Native bridge to the AppMetrica on both iOS and Android.
 Otherwise you'll get build error.
 2. `npm install --save react-native-appmetrica`
 3. `react-native link react-native-appmetrica`
- 
+
+**iOS notice**: If you build failed after installing SDK and `react-native-appmetrica`
+make sure `YandexMobileMetrica.framework` and `libRCTAppMetrica.a` are included at Build Phase -> Link Binary With Libraries
+
+## Example
+```
+import AppMetrica from 'react-native-appmetrica';
+
+AppMetrica.activateWithApiKey('2dee16d2-1143-4cd3-a904-39ce10ac2755');
+
+AppMetrica.reportEvent('Hello world')
+```
+
+## Usage
+
+```
+import AppMetrica from 'react-native-appmetrica';
+
+// Starts the statistics collection process.
+AppMetrica.activateWithApiKey('...KEY...');
+
+// Sends a custom event message and additional parameters (optional).
+AppMetrica.reportEvent('My event');
+AppMetrica.reportEvent('My event', { foo: 'bar' });
+```
