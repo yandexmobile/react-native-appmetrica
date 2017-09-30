@@ -1,4 +1,4 @@
-package com.aandrosov.AppMetrica;
+package com.doochik.RNAppMetrica;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

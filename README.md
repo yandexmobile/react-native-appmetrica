@@ -5,8 +5,6 @@
 # react-native-appmetrica
 React Native bridge to the AppMetrica on both iOS and Android.
 
-**NOTE: Only iOS support for now. Feel free to send PR with Android support.**
-
 ## Installation
 
 1. Setup [AppMetrica](https://tech.yandex.com/appmetrica/).
@@ -38,4 +36,7 @@ AppMetrica.activateWithApiKey('...KEY...');
 // Sends a custom event message and additional parameters (optional).
 AppMetrica.reportEvent('My event');
 AppMetrica.reportEvent('My event', { foo: 'bar' });
+
+// Send a custom error event
+AppMetrica.reportError('My error');
 ```

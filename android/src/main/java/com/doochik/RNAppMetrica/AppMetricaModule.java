@@ -1,4 +1,4 @@
-package com.aandrosov.AppMetrica;
+package com.doochik.RNAppMetrica;
 
 import android.app.Activity;
 import android.app.Application;
@@ -38,6 +38,15 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
         if (activity != null) {
             Application application = activity.getApplication();
             YandexMetrica.enableActivityAutoTracking(application);
+        }
+    }
+
+    @ReactMethod
+    public void reportError(String message) {
+        try {
+            Integer.valueOf("00xffWr0ng");
+        } catch (Throwable error) {
+            YandexMetrica.reportError(message, error);
         }
     }
 
