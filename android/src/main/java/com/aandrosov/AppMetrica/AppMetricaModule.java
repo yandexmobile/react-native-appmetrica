@@ -5,16 +5,12 @@ import android.app.Application;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.facebook.react.ReactApplication;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.lang.Exception;
 
 import org.json.JSONObject;
@@ -39,8 +35,10 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
         YandexMetrica.activate(getReactApplicationContext().getApplicationContext(), key);
 
         Activity activity = getCurrentActivity();
-        Application application = activity.getApplication();
-        YandexMetrica.enableActivityAutoTracking(application);
+        if (activity != null) {
+            Application application = activity.getApplication();
+            YandexMetrica.enableActivityAutoTracking(application);
+        }
     }
 
     @ReactMethod
