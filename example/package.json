@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4",
-		"react-native-appmetrica": "git://github.com/doochik/react-native-appmetrica.git#1cef1b5c7b4ef9777f5226b10f078331cd06810a",
+		"react-native-appmetrica": "0.1.0",
 		"react-native-deprecated-custom-components": "0.1.1"
 	},
 	"devDependencies": {

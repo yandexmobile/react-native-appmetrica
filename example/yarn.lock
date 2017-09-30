@@ -3432,9 +3432,9 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-"react-native-appmetrica@git://github.com/doochik/react-native-appmetrica.git#1cef1b5c7b4ef9777f5226b10f078331cd06810a":
-  version "0.0.2"
-  resolved "git://github.com/doochik/react-native-appmetrica.git#1cef1b5c7b4ef9777f5226b10f078331cd06810a"
+react-native-appmetrica@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-appmetrica/-/react-native-appmetrica-0.1.0.tgz#4224056e0a5002337ea00ef27fc53aa787e751d3"
 
 react-native-deprecated-custom-components@0.1.1:
   version "0.1.1"
