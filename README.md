@@ -3,11 +3,11 @@
 
 
 # react-native-appmetrica
-React Native bridge to the AppMetrica on both iOS and Android.
+React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
 ## Installation
 
-1. Setup [AppMetrica](https://tech.yandex.com/appmetrica/).
+1. [Setup AppMetrica](https://tech.yandex.com/appmetrica/).
 `YandexMobileMetrica.framework` should be placed at `<project_dir>/ios/` or `<project_dir>/ios/Frameworks/`.
 Otherwise you'll get build error.
 2. `npm install --save react-native-appmetrica`
