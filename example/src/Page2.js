@@ -20,7 +20,7 @@ class Page2 extends React.PureComponent {
     }
 
     handlePress() {
-        appNavigator.push({ id: 'page2' });
+        appNavigator.pop();
     }
 }
 

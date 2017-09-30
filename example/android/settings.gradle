@@ -1,3 +1,5 @@
 rootProject.name = 'RNAppMetrika'
+include ':react-native-appmetrica'
+project(':react-native-appmetrica').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-appmetrica/android')
 
 include ':app'
