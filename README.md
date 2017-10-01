@@ -7,7 +7,7 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
 
 ## Installation
 
-1. [Setup AppMetrica](https://tech.yandex.com/appmetrica/).
+1. **Only for iOS**: [setup AppMetrica](https://tech.yandex.com/appmetrica/).
 `YandexMobileMetrica.framework` should be placed at `<project_dir>/ios/` or `<project_dir>/ios/Frameworks/`.
 Otherwise you'll get build error.
 2. `npm install --save react-native-appmetrica`
@@ -17,17 +17,18 @@ Otherwise you'll get build error.
 make sure `YandexMobileMetrica.framework` and `libRCTAppMetrica.a` are included at Build Phase -> Link Binary With Libraries
 
 ## Example
-```
+
+```js
 import AppMetrica from 'react-native-appmetrica';
 
 AppMetrica.activateWithApiKey('2dee16d2-1143-4cd3-a904-39ce10ac2755');
 
-AppMetrica.reportEvent('Hello world')
+AppMetrica.reportEvent('Hello world');
 ```
 
 ## Usage
 
-```
+```js
 import AppMetrica from 'react-native-appmetrica';
 
 // Starts the statistics collection process.
@@ -37,6 +38,6 @@ AppMetrica.activateWithApiKey('...KEY...');
 AppMetrica.reportEvent('My event');
 AppMetrica.reportEvent('My event', { foo: 'bar' });
 
-// Send a custom error event
+// Send a custom error event.
 AppMetrica.reportError('My error');
 ```
