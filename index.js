@@ -30,4 +30,12 @@ export default {
     reportError(error: string, reason: Object) {
         AppMetrica.reportError(error, reason);
     },
+
+    /**
+     * Sets the ID of the user profile.
+     * @param {string} userProfileId
+     */
+    setUserProfileID(userProfileId: string) {
+        AppMetrica.setUserProfileID(userProfileId);
+    },
 };
