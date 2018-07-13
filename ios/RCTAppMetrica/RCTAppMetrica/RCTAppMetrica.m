@@ -9,7 +9,8 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(activateWithApiKey:(NSString *)apiKey)
 {
-    [YMMYandexMetrica activateWithApiKey:apiKey];
+    YMMYandexMetricaConfiguration *configuration = [[YMMYandexMetricaConfiguration alloc] initWithApiKey:apiKey];
+    [YMMYandexMetrica activateWithConfiguration:configuration];
 }
 
 RCT_EXPORT_METHOD(reportEvent:(NSString *)message)
