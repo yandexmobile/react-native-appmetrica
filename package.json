@@ -1,6 +1,6 @@
 {
   "name": "react-native-appmetrica",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "React Native bridge to the AppMetrica on both iOS and Android",
   "main": "index.js",
   "scripts": {
