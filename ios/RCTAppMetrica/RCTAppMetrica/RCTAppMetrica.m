@@ -26,4 +26,8 @@ RCT_EXPORT_METHOD(reportError:(NSString *)message) {
     NSException *exception = [[NSException alloc] initWithName:message reason:nil userInfo:nil];
     [YMMYandexMetrica reportError:message exception:exception onFailure:NULL];
 }
+
+RCT_EXPORT_METHOD(setUserProfileID:(NSString *)userProfileID) {
+    [YMMYandexMetrica setUserProfileID:userProfileID];
+}
 @end

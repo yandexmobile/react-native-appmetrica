@@ -59,6 +59,11 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void setUserProfileID(String profileID) {
+        YandexMetrica.setUserProfileID(profileID);
+    }
+
     private String convertReadableMapToJson(final ReadableMap readableMap) {
 		ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
         JSONObject json = new JSONObject();
