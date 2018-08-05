@@ -16,6 +16,7 @@ import java.lang.Exception;
 import org.json.JSONObject;
 
 import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
 
 public class AppMetricaModule extends ReactContextBaseJavaModule {
     final static String ModuleName = "AppMetrica";
@@ -32,8 +33,8 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void activateWithApiKey(String key) {
-        YandexMetrica.activate(getReactApplicationContext().getApplicationContext(), key);
-
+        YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(key);
+        YandexMetrica.activate(getReactApplicationContext().getApplicationContext(), configBuilder.build());
         Activity activity = getCurrentActivity();
         if (activity != null) {
             Application application = activity.getApplication();
