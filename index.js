@@ -3,6 +3,12 @@
 import { NativeModules } from 'react-native';
 const { AppMetrica } = NativeModules;
 
+type ActivationConfig = {
+    apiKey: string,
+    sessionTimeout?: number,
+    firstActivationAsUpdate?: boolean,
+};
+
 export default {
 
     /**
@@ -11,6 +17,14 @@ export default {
      */
     activateWithApiKey(apiKey: string) {
         AppMetrica.activateWithApiKey(apiKey);
+    },
+
+    /**
+     * Starts the statistics collection process using config.
+     * @param {object} params
+     */
+    activateWithConfig(params: ActivationConfig) {
+        AppMetrica.activateWithConfig(params);
     },
 
     /**
