@@ -33,6 +33,12 @@ import AppMetrica from 'react-native-appmetrica';
 
 // Starts the statistics collection process.
 AppMetrica.activateWithApiKey('...KEY...');
+// OR
+AppMetrica.activateWithConfig({
+  apiKey: '...KEY...',
+  sessionTimeout: 120,
+  firstActivationAsUpdate: true,
+});
 
 // Sends a custom event message and additional parameters (optional).
 AppMetrica.reportEvent('My event');
