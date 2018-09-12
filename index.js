@@ -9,6 +9,15 @@ type ActivationConfig = {
     firstActivationAsUpdate?: boolean,
 };
 
+type UserProfileAttributes = {
+    name?: ?string,
+    gender?: 'female' | 'male' | string | void,
+    age?: ?number,
+    birthDate?: Date | [number] | [number, number] | [number, number, number] | void,
+    notificationsEnabled?: boolean,
+    [string]: string | number | boolean,
+};
+
 export default {
 
     /**
@@ -51,5 +60,25 @@ export default {
      */
     setUserProfileID(userProfileId: string) {
         AppMetrica.setUserProfileID(userProfileId);
+    },
+
+    /**
+     * Sets attributes of the user profile.
+     * @param {object} attributes
+     */
+    reportUserProfile(attributes: UserProfileAttributes) {
+        const readyAttributes = {};
+        Object.keys(attributes).forEach(key => {
+            if (
+                key === 'birthDate' &&
+                typeof attributes.birthDate === 'object' &&
+                typeof attributes.birthDate.getTime === 'function'
+            ) {
+                readyAttributes.birthDate = attributes.birthDate.getTime();
+            } else {
+                readyAttributes[key] = attributes[key];
+            }
+        });
+        AppMetrica.reportUserProfile(readyAttributes);
     },
 };
