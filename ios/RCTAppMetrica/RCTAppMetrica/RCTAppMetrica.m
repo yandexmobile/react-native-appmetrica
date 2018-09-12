@@ -15,10 +15,10 @@ RCT_EXPORT_METHOD(activateWithApiKey:(NSString *)apiKey)
 
 RCT_EXPORT_METHOD(activateWithConfig:(NSDictionary *)config) {
     YMMYandexMetricaConfiguration *configuration = [[YMMYandexMetricaConfiguration alloc] initWithApiKey:config[@"apiKey"]];
-    if (config[@"sessionTimeout"] != (id)[NSNull null]) {
+    if (config[@"sessionTimeout"] != [NSNull null]) {
         [configuration setSessionTimeout:[config[@"sessionTimeout"] intValue]];
     }
-    if (config[@"firstActivationAsUpdate"] != (id)[NSNull null]) {
+    if (config[@"firstActivationAsUpdate"] != [NSNull null]) {
         [configuration setHandleFirstActivationAsUpdate:[config[@"firstActivationAsUpdate"] boolValue]];
     }
     [YMMYandexMetrica activateWithConfiguration:configuration];
