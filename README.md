@@ -31,7 +31,7 @@ AppMetrica.reportEvent('Hello world');
 ```js
 import AppMetrica from 'react-native-appmetrica';
 
-// Starts the statistics collection process.
+// Start the statistics collection process.
 AppMetrica.activateWithApiKey('...KEY...');
 // OR
 AppMetrica.activateWithConfig({
@@ -40,10 +40,40 @@ AppMetrica.activateWithConfig({
   firstActivationAsUpdate: true,
 });
 
-// Sends a custom event message and additional parameters (optional).
+// Send a custom event message and additional parameters (optional).
 AppMetrica.reportEvent('My event');
 AppMetrica.reportEvent('My event', { foo: 'bar' });
 
 // Send a custom error event.
 AppMetrica.reportError('My error');
+
+// Send user profile with predefined attributes.
+AppMetrica.reportUserProfile({ name: 'User 1', age: 87 });
+
+// Send user profile with custom attributes.
+AppMetrica.reportUserProfile({
+  likesMusic: true,
+  addedToFavorites: '+1',
+  score: 150,
+});
 ```
+### Reporting user profile
+
+All predefined attributes are supported. Use `null` to reset them.
+
+```js
+type UserProfileAttributes = {
+    name?: ?string,
+    gender?: 'female' | 'male' | string | void,
+    age?: ?number,
+    birthDate?: Date | [number] | [number, number] | [number, number, number] | void,
+    notificationsEnabled?: boolean,
+    /** custom attributes */
+    [string]: string | number | boolean,
+};
+```
+
+Custom attributes are supported. They can't be reset for now.
+
+Use values like `'+1'`, `'-10'` for counters. Current limitation is any custom attribute which value started with `'+'` or `'-'` will be considered as a counter.
+
