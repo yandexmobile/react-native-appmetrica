@@ -106,6 +106,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 59FB35B91F6FA64700A6608F;
@@ -228,9 +229,7 @@
 					"$(PROJECT_DIR)/../../../../ios/Frameworks",
 					"$(PROJECT_DIR)/../../../../ios/Pods/**",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../../../ios/Pods/**",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../../ios/Pods/Headers/Public/**";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -245,9 +244,7 @@
 					"$(PROJECT_DIR)/../../../../ios/Frameworks",
 					"$(PROJECT_DIR)/../../../../ios/Pods/**",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/../../../../ios/Pods/**",
-				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../../ios/Pods/Headers/Public/**";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
