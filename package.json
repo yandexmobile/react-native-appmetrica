@@ -6,7 +6,6 @@
   "scripts": {
     "test": "npm run test:eslint",
     "test:eslint": "eslint .",
-		"postinstall": "jetify"
   },
   "repository": {
     "type": "git",
