@@ -18,7 +18,7 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
 import AppMetrica from 'react-native-appmetrica';
 
 // Starts the statistics collection process.
-AppMetrica.activateWithConfig({
+AppMetrica.activate({
   apiKey: '...KEY...',
   sessionTimeout: 120,
   firstActivationAsUpdate: true,
