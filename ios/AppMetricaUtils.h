@@ -9,6 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <YandexMobileMetrica/YandexMobileMetrica.h>
 
+
 @interface AppMetricaUtils : NSObject
 
 + (YMMYandexMetricaConfiguration *)configurationForDictionary:(NSDictionary *)configDict;

@@ -8,6 +8,7 @@
 
 #import "AppMetrica.h"
 #import "AppMetricaUtils.h"
+#import <YandexMobileMetricaPush/YMPYandexMetricaPush.h>
 
 static NSString *const kYMMReactNativeExceptionName = @"ReactNativeException";
 
@@ -20,6 +21,11 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(activate:(NSDictionary *)configDict)
 {
     [YMMYandexMetrica activateWithConfiguration:[AppMetricaUtils configurationForDictionary:configDict]];
+}
+
+RCT_EXPORT_METHOD(initPush:(NSString *)deviceToken)
+{
+    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken];
 }
 
 RCT_EXPORT_METHOD(getLibraryApiLevel)
