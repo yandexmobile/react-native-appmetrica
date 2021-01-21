@@ -23,7 +23,15 @@ RCT_EXPORT_METHOD(activate:(NSDictionary *)configDict)
     [YMMYandexMetrica activateWithConfiguration:[AppMetricaUtils configurationForDictionary:configDict]];
 }
 
-RCT_EXPORT_METHOD(initPush:(NSString *)deviceToken)
+RCT_EXPORT_METHOD(reportUserProfile:(NSDictionary *)configDict)
+{
+//    [YMPYandexMetrica reportUserProfile:[AppMetricaUtils configurationForUserProfile:configDict]];
+    [YMMYandexMetrica reportUserProfile:[AppMetricaUtils configurationForUserProfile:configDict] onFailure:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
+RCT_EXPORT_METHOD(initPush:(NSData *)deviceToken)
 {
     [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken];
 }

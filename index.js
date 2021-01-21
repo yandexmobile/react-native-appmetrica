@@ -68,7 +68,7 @@ export default {
     } else {
       AppMetrica.initPush(token);
     }
-  }
+  },
 
   reportUserProfile(config: UserProfileConfig){
     AppMetrica.reportUserProfile(config);

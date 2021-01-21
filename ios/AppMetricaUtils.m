@@ -52,6 +52,38 @@
     return configuration;
 }
 
+
++ (YMMMutableUserProfile *)configurationForUserProfile:(NSDictionary *)configDict
+{
+    YMMMutableUserProfile *profile = [[YMMMutableUserProfile alloc] init];
+    
+    id<YMMCustomCounterAttribute> timeLeftAttribute = [YMMProfileAttribute customCounter:@"time_left"];
+    [profile apply:[timeLeftAttribute withDelta:-4.42]];
+    
+    if (configDict[@"name"] != nil) {
+        id<YMMNameAttribute> nameAttribute = [YMMProfileAttribute name];
+        [profile apply:[nameAttribute withValue:configDict[@"name"]]];
+    }
+    if (configDict[@"floor"] != nil && [configDict[@"floor"] isEqualToString:@"male"]) {
+        id<YMMGenderAttribute> genderAttribute = [YMMProfileAttribute gender];
+        [profile apply:[genderAttribute withValue:YMMGenderTypeMale]];
+    }
+    if (configDict[@"floor"] != nil && [configDict[@"floor"] isEqualToString:@"female"]) {
+        id<YMMGenderAttribute> genderAttribute = [YMMProfileAttribute gender];
+        [profile apply:[genderAttribute withValue:YMMGenderTypeFemale]];
+    }
+    if (configDict[@"age"] != nil) {
+        id<YMMBirthDateAttribute> birthDateAttribute = [YMMProfileAttribute birthDate];
+        [profile apply:[birthDateAttribute withAge:[configDict[@"age"] unsignedIntegerValue]]];
+    }
+    if (configDict[@"isNotification"] != nil) {
+        id<YMMNotificationsEnabledAttribute> isNotificationAttribute = [YMMProfileAttribute notificationsEnabled];
+        [profile apply:[isNotificationAttribute withValue:configDict[@"isNotification"]]];
+    }
+
+    return profile;
+}
+
 + (CLLocation *)locationForDictionary:(NSDictionary *)locationDict
 {
     if (locationDict == nil) {
