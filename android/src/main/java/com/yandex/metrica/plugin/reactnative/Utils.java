@@ -9,15 +9,39 @@
 package com.yandex.metrica.plugin.reactnative;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.yandex.metrica.PreloadInfo;
 import com.yandex.metrica.YandexMetricaConfig;
+import com.yandex.metrica.profile.GenderAttribute;
+import com.yandex.metrica.profile.UserProfile;
+import com.yandex.metrica.profile.Attribute;
 
 import java.util.Iterator;
 import java.util.Map;
 
 abstract class Utils {
+
+    static UserProfile toYandexProfileConfig(ReadableMap configMap) {
+        UserProfile.Builder userProfile = UserProfile.newBuilder();
+        if (configMap.hasKey("name")) {
+            userProfile.apply(Attribute.name().withValue(configMap.getString("name")));
+        }
+        if (configMap.hasKey("floor") && configMap.getString("floor") == "male") {
+            userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.MALE));
+        } else if(configMap.hasKey("floor") && configMap.getString("floor") == "female") {
+
+            userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.FEMALE));
+        }
+        if (configMap.hasKey("age")) {
+            userProfile.apply(Attribute.birthDate().withAge(configMap.getInt("age")));
+        }
+        if (configMap.hasKey("isNotification")) {
+            userProfile.apply(Attribute.notificationsEnabled().withValue(configMap.getBoolean("isNotification")));
+        }
+        return userProfile.build();
+    }
 
     static YandexMetricaConfig toYandexMetricaConfig(ReadableMap configMap) {
         YandexMetricaConfig.Builder builder = YandexMetricaConfig.newConfigBuilder(configMap.getString("apiKey"));

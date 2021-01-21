@@ -30,6 +30,15 @@ type AppMetricaConfig = {
   sessionsAutoTracking?: boolean,
 }
 
+type FloorType = 'male' | 'female';
+
+type UserProfileConfig = {
+  name: string,
+  floor?: FloorType,
+  age: number,
+  isNotification: boolean,
+}
+
 type PreloadInfo = {
   trackingId: string,
   additionalInfo?: Object,
@@ -51,6 +60,10 @@ export default {
 
   activate(config: AppMetricaConfig) {
     AppMetrica.activate(config);
+  },
+
+  reportUserProfile(config: UserProfileConfig){
+    AppMetrica.reportUserProfile(config);
   },
 
   // Android

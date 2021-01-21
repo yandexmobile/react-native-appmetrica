@@ -51,6 +51,11 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void reportUserProfile(ReadableMap configAttributes) {
+        YandexMetrica.reportUserProfile(Utils.toYandexProfileConfig(configAttributes));
+    }
+
+    @ReactMethod
     public void getLibraryApiLevel(Promise promise) {
         promise.resolve(YandexMetrica.getLibraryApiLevel());
     }
