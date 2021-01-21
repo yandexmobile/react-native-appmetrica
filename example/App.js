@@ -11,13 +11,13 @@ import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 
 import AppMetrica from 'react-native-appmetrica';
 
-function getRactNativeVersion() {
+function getReactNativeVersion() {
   const reactNativePackage = require('./node_modules/react-native/package.json');
   return reactNativePackage.version;
 }
 
 function isReactNativeVersion(major, minor = 0, path = 0) {
-  const {curMajor, curMinor, curPath} = getRactNativeVersion()
+  const {curMajor, curMinor, curPath} = getReactNativeVersion()
     .split('.')
     .map(it => +it);
   if (curMajor === major) {
@@ -61,7 +61,7 @@ export default class App extends Component<Props> {
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>React Native Version</Text>
               <Text style={styles.sectionDescription}>
-                {getRactNativeVersion()}
+                {getReactNativeVersion()}
               </Text>
             </View>
             <View style={styles.sectionContainer}>

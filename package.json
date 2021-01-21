@@ -30,6 +30,5 @@
   "peerDependencies": {
     "react-native": ">=0.59.0 <1.0.x"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
