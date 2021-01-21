@@ -25,7 +25,6 @@ RCT_EXPORT_METHOD(activate:(NSDictionary *)configDict)
 
 RCT_EXPORT_METHOD(reportUserProfile:(NSDictionary *)configDict)
 {
-//    [YMPYandexMetrica reportUserProfile:[AppMetricaUtils configurationForUserProfile:configDict]];
     [YMMYandexMetrica reportUserProfile:[AppMetricaUtils configurationForUserProfile:configDict] onFailure:^(NSError *error) {
         NSLog(@"Error: %@", error);
     }];

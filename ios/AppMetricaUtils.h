@@ -13,6 +13,7 @@
 @interface AppMetricaUtils : NSObject
 
 + (YMMYandexMetricaConfiguration *)configurationForDictionary:(NSDictionary *)configDict;
++ (YMMYandexMetricaConfiguration *)configurationForUserProfile:(NSDictionary *)configDict;
 + (CLLocation *)locationForDictionary:(NSDictionary *)locationDict;
 + (NSString *)stringFromRequestDeviceIDError:(NSError *)error;
 
