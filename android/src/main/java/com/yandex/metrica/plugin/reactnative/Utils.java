@@ -28,10 +28,11 @@ abstract class Utils {
         if (configMap.hasKey("name")) {
             userProfile.apply(Attribute.name().withValue(configMap.getString("name")));
         }
-        if (configMap.hasKey("floor") && configMap.getString("floor") == "male") {
+        String floor = configMap.getString("floor");
+        Log.w("TAG", floor);
+        if (configMap.hasKey("floor") &&  "male".equals(configMap.getString("floor"))) {
             userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.MALE));
-        } else if(configMap.hasKey("floor") && configMap.getString("floor") == "female") {
-
+        } else if(configMap.hasKey("floor") && "female".equals(configMap.getString("floor"))) {
             userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.FEMALE));
         }
         if (configMap.hasKey("age")) {
