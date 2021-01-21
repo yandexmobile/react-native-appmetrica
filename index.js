@@ -6,7 +6,7 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-import {NativeModules} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 
 const {AppMetrica} = NativeModules;
 
@@ -61,6 +61,14 @@ export default {
   activate(config: AppMetricaConfig) {
     AppMetrica.activate(config);
   },
+
+  initPush(token = ''){
+    if(Platform.OS === 'android') {
+      AppMetrica.initPush();
+    } else {
+      AppMetrica.initPush(token);
+    }
+  }
 
   reportUserProfile(config: UserProfileConfig){
     AppMetrica.reportUserProfile(config);

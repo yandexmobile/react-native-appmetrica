@@ -18,6 +18,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.push.YandexMetricaPush;
 
 public class AppMetricaModule extends ReactContextBaseJavaModule {
 
@@ -48,6 +49,11 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
         } else {
             Log.w(TAG, "Activity is not attached");
         }
+    }
+
+    @ReactMethod
+    public void initPush() {
+        YandexMetricaPush.init(reactContext);
     }
 
     @ReactMethod

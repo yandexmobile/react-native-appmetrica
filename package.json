@@ -1,7 +1,7 @@
 {
   "name": "react-native-appmetrica-next",
-  "title": "Yandex AppMetrica React Native Plugin",
-  "version": "1.0.2",
+  "title": "Yandex AppMetrica React Native Plugin && AppMetricaPushSDK (fireBase CloudMessage)",
+  "version": "1.0.3",
   "description": "React Native plugin for AppMetrica analytics tool",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,9 @@
     "yandex",
     "appmetrica",
     "metrica",
+    "pushSDK",
+    "push",
+    "sdk",
     "analytics",
     "tracking",
     "react-native",
