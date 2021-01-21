@@ -9,15 +9,6 @@ react-native-push-next library functionality is expanded [react-native-appmetric
 or
 `yearn add react-native-appmetrica-next`
 
-1. If React Native version <= 0.59: \
-   `react-native link react-native-appmetrica-next`
-2. iOS only
-
-- if `${PROJECT_DIR}/ios/Podfile` exists: \
-  `npx pod-install`
-- if `${PROJECT_DIR}/ios/Podfile` don't exists: \
-  [Setup AppMetrica](https://appmetrica.yandex.com/docs/mobile-sdk-dg/tasks/ios-quickstart.html) and placed frameworks at `${PROJECT_DIR}/ios/Frameworks`
-
 ## Usage
 
 ```js
@@ -36,4 +27,30 @@ AppMetrica.reportEvent("My event", { foo: "bar" });
 
 // Send a custom error event.
 AppMetrica.reportError("My error");
+
+// reportUserProfile
+    AppMetrica.activate({
+      apiKey: "...KEY...",
+      sessionTimeout: 120,
+      firstActivationAsUpdate: true,
+    });
+    RNAppMetrica.setUserProfileID('id');
+    RNAppMetrica.reportUserProfile({
+      name: 'Andrey Bondarenko',
+      floor: 'male',
+      age: 34,
+      isNotification: true,
+    });
+
+// init Push SDK example for iOS
+ checkPermission = async () => {
+    const authorizationStatus = await messaging().requestPermission();
+
+    if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
+      const deviceToken = await messaging().getToken();
+
+      RNAppMetrica.initPush(deviceToken); -> // for iOS
+      // or
+      RNAppMetrica.initPush(); -> // for Android
+
 ```
