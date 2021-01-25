@@ -73,8 +73,9 @@
         [profile apply:[genderAttribute withValue:YMMGenderTypeFemale]];
     }
     if (configDict[@"age"] != nil) {
+        NSNumber *age = configDict[@"age"];
         id<YMMBirthDateAttribute> birthDateAttribute = [YMMProfileAttribute birthDate];
-        [profile apply:[birthDateAttribute withAge:[configDict[@"age"] unsignedIntegerValue]]];
+        [profile apply:[birthDateAttribute withAge:[age unsignedIntegerValue]]];
     }
     if (configDict[@"isNotification"] != nil) {
         id<YMMNotificationsEnabledAttribute> isNotificationAttribute = [YMMProfileAttribute notificationsEnabled];
