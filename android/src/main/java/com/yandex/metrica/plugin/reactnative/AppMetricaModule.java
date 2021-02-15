@@ -19,7 +19,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.yandex.metrica.YandexMetrica;
 import com.yandex.metrica.push.YandexMetricaPush;
-import com.yandex.appmetrica.push.firebase.FirebasePushServiceControllerProvider;
 
 public class AppMetricaModule extends ReactContextBaseJavaModule {
 
@@ -54,9 +53,12 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initPush() {
-        // YandexMetricaPush.init(reactContext);
-        YandexMetricaPush.init(reactContext,
-        new FirebasePushServiceControllerProvider(reactContext));
+        YandexMetricaPush.init(reactContext);
+    }
+
+    @ReactMethod
+    public void getToken(Promise promise) {
+        promise.resolve(YandexMetricaPush.getToken());
     }
 
     @ReactMethod

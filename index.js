@@ -70,6 +70,10 @@ export default {
     }
   },
 
+  getToken(){
+    return AppMetrica.getToken();
+  },
+
   reportUserProfile(config: UserProfileConfig){
     AppMetrica.reportUserProfile(config);
   },
