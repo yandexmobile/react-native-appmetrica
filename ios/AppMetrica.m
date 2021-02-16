@@ -6,9 +6,13 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
+#import <React/RCTConvert.h>
 #import "AppMetrica.h"
+#import <Firebase/Firebase.h>
 #import "AppMetricaUtils.h"
 #import <YandexMobileMetricaPush/YMPYandexMetricaPush.h>
+#import "AppMetrica+AppDelegate.h"
+
 
 static NSString *const kYMMReactNativeExceptionName = @"ReactNativeException";
 
@@ -16,7 +20,36 @@ static NSString *const kYMMReactNativeExceptionName = @"ReactNativeException";
 
 @synthesize methodQueue = _methodQueue;
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE();
+
+- (id)init {
+  self = [super init];
+  return self;
+}
+
+
+- (dispatch_queue_t)methodQueue {
+  return dispatch_get_main_queue();
+}
+
++ (BOOL)requiresMainQueueSetup {
+  return YES;
+}
+
+
++ (NSDictionary *)addCustomPropsToUserProps:(NSDictionary *_Nullable)userProps withLaunchOptions:(NSDictionary *_Nullable)launchOptions  {
+    NSMutableDictionary *appProperties = userProps != nil ? [userProps mutableCopy] : [NSMutableDictionary dictionary];
+    appProperties[@"isHeadless"] = @([RCTConvert BOOL:@(NO)]);
+        
+    if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+      if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        appProperties[@"isHeadless"] = @([RCTConvert BOOL:@(YES)]);
+      }
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:appProperties];
+}
+
 
 RCT_EXPORT_METHOD(activate:(NSDictionary *)configDict)
 {
@@ -30,9 +63,36 @@ RCT_EXPORT_METHOD(reportUserProfile:(NSDictionary *)configDict)
     }];
 }
 
+
+
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//
+//    NSLog(@"deviceToken");
+    // If the library AppMetrica the SDK was not initialized before this step,
+    // the method call will result in emergency stop applications.
+//    #ifdef DEBUG
+//        YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentDevelopment;
+//    #else
+//        YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentProduction;
+//    #endif
+//    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken pushEnvironment:pushEnvironment];
+//}
+
 RCT_EXPORT_METHOD(initPush:(NSData *)deviceToken)
 {
-    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken];
+//    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken];
+//    NSLog(@"deviceToken 7", [FIRMessaging messaging].APNSToken);
+//    NSLog([FIRMessaging messaging].APNSToken);
+
+    #ifdef DEBUG
+       YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentDevelopment;
+    #else
+       YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentProduction;
+    #endif
+   [YMPYandexMetricaPush setDeviceTokenFromData:[FIRMessaging messaging].APNSToken pushEnvironment:pushEnvironment];
+    
+    
+//    RNFBMessagingAppDelegate
 }
 
 RCT_EXPORT_METHOD(getLibraryApiLevel)
@@ -54,6 +114,9 @@ RCT_EXPORT_METHOD(reportAppOpen:(NSString *)deeplink)
 {
     [YMMYandexMetrica handleOpenURL:[NSURL URLWithString:deeplink]];
 }
+
+
+
 
 RCT_EXPORT_METHOD(reportError:(NSString *)message) {
     NSException *exception = [[NSException alloc] initWithName:message reason:nil userInfo:nil];
