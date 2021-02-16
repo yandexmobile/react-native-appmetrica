@@ -56,7 +56,8 @@ public class AppMetricaModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void initPush() {
         // YandexMetricaPush.init(reactContext);
-        getReactApplicationContext(), new FirebasePushServiceControllerProvider(getReactApplicationContext())
+        YandexMetricaPush.init(getReactApplicationContext(), 
+        new FirebasePushServiceControllerProvider(getReactApplicationContext()));
     }
 
     @ReactMethod
