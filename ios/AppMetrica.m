@@ -21,11 +21,6 @@ static NSString *const kYMMReactNativeExceptionName = @"ReactNativeException";
 
 RCT_EXPORT_MODULE();
 
-- (id)init {
-  self = [super init];
-  return self;
-}
-
 
 - (dispatch_queue_t)methodQueue {
   return dispatch_get_main_queue();
