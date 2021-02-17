@@ -11,7 +11,6 @@
 #import <Firebase/Firebase.h>
 #import "AppMetricaUtils.h"
 #import <YandexMobileMetricaPush/YMPYandexMetricaPush.h>
-#import "AppMetrica+AppDelegate.h"
 
 
 static NSString *const kYMMReactNativeExceptionName = @"ReactNativeException";
@@ -65,24 +64,8 @@ RCT_EXPORT_METHOD(reportUserProfile:(NSDictionary *)configDict)
 
 
 
-//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//
-//    NSLog(@"deviceToken");
-    // If the library AppMetrica the SDK was not initialized before this step,
-    // the method call will result in emergency stop applications.
-//    #ifdef DEBUG
-//        YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentDevelopment;
-//    #else
-//        YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentProduction;
-//    #endif
-//    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken pushEnvironment:pushEnvironment];
-//}
-
 RCT_EXPORT_METHOD(initPush:(NSData *)deviceToken)
 {
-//    [YMPYandexMetricaPush setDeviceTokenFromData:deviceToken];
-//    NSLog(@"deviceToken 7", [FIRMessaging messaging].APNSToken);
-//    NSLog([FIRMessaging messaging].APNSToken);
 
     #ifdef DEBUG
        YMPYandexMetricaPushEnvironment pushEnvironment = YMPYandexMetricaPushEnvironmentDevelopment;
@@ -91,8 +74,6 @@ RCT_EXPORT_METHOD(initPush:(NSData *)deviceToken)
     #endif
    [YMPYandexMetricaPush setDeviceTokenFromData:[FIRMessaging messaging].APNSToken pushEnvironment:pushEnvironment];
     
-    
-//    RNFBMessagingAppDelegate
 }
 
 RCT_EXPORT_METHOD(getLibraryApiLevel)
