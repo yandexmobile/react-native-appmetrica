@@ -9,6 +9,32 @@ react-native-push-next library functionality is expanded [react-native-appmetric
 or
 `yearn add react-native-appmetrica-next`
 
+## NEXT for Android
+
+# create file
+
+`
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+import com.yandex.metrica.push.firebase.MetricaMessagingService;
+
+public class FirebaseMessagingMasterService extends FirebaseMessagingService {
+@Override
+public void onMessageReceived(RemoteMessage message) {
+super.onMessageReceived(message);
+// AppMetrica automatically recognizes its messages and processes them only.
+new MetricaMessagingService().processPush(this, message);
+
+        // Implement the logic for sending messages to other SDKs.
+    }
+
+}
+`
+
+# Android manifest
+
+`<application> ... <service android:name=".FirebaseMessagingMasterService" android:enabled="true" android:exported="false"> <intent-filter android:priority="100"> <action android:name="com.google.firebase.MESSAGING_EVENT"/> </intent-filter> </service> <service android:name="com.yandex.metrica.push.firebase.MetricaMessagingService" tools:node="remove"/> ... </application> `
+
 ## Usage
 
 ```js
