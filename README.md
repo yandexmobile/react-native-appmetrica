@@ -9,7 +9,43 @@ react-native-push-next library functionality is expanded [react-native-appmetric
 or
 `yearn add react-native-appmetrica-next`
 
-# NEXT for Android
+## Usage
+
+```js
+import AppMetrica from "react-native-appmetrica-next";
+
+// Starts the statistics collection process.
+AppMetrica.activate({
+  apiKey: "...KEY...",
+  sessionTimeout: 120,
+  firstActivationAsUpdate: true,
+});
+
+// Sends a custom event message and additional parameters (optional).
+AppMetrica.reportEvent("My event");
+AppMetrica.reportEvent("My event", { foo: "bar" });
+
+// Send a custom error event.
+AppMetrica.reportError("My error");
+
+// reportUserProfile
+AppMetrica.activate({
+  apiKey: "...KEY...",
+  sessionTimeout: 120,
+  firstActivationAsUpdate: true,
+});
+RNAppMetrica.setUserProfileID("id");
+RNAppMetrica.reportUserProfile({
+  name: "Andrey Bondarenko",
+  floor: "male",
+  age: 34,
+  isNotification: true,
+});
+```
+
+# SETTING PUSH SDK
+
+## NEXT for Android
 
 ## create file FirebaseMessagingMasterService.java in you project
 
@@ -53,40 +89,89 @@ new MetricaMessagingService().processPush(this, message);
 </application>
 ```
 
+## Silent Push Notifications for Android
+
+## create file BroadcastReceiver in you project
+
+```js
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import com.yandex.metrica.push.YandexMetricaPush;
+
+
+public class SilentPushReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // TODO: This method is called when the BroadcastReceiver is receiving
+        // an Intent broadcast.
+        String payload = intent.getStringExtra(YandexMetricaPush.EXTRA_PAYLOAD);
+
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+}
+```
+
+## Your files to Android manifest
+
+```js
+<application>
+  ...
+ <receiver android:name=".SilentPushReceiver">
+            <intent-filter>
+                <!-- Receive silent push notifications. -->
+                <action android:name="${applicationId}.action.ymp.SILENT_PUSH_RECEIVE"/>
+            </intent-filter>
+        </receiver>
+```
+
 # NEXT for iOS
 
-## Usage
+### file AppDelegate.m add
+
+```js
+// Add import
+#import <YandexMobileMetricaPush/YMPYandexMetricaPush.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  ...
+  ...
+  // Enable in-app push notifications handling in iOS 10
+      if ([UNUserNotificationCenter class] != nil) {
+          id<YMPUserNotificationCenterDelegate> delegate = [YMPYandexMetricaPush userNotificationCenterDelegate];
+          delegate.nextDelegate = [UNUserNotificationCenter currentNotificationCenter].delegate;
+          [UNUserNotificationCenter currentNotificationCenter].delegate = delegate;
+      }
+
+    [YMPYandexMetricaPush handleApplicationDidFinishLaunchingWithOptions:launchOptions];
+...
+...
+}
+
+// and ADD
+- (void)application:(UIApplication *)application
+    didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [YMPYandexMetricaPush handleRemoteNotification:userInfo];
+}
+- (void)application:(UIApplication *)application
+    didReceiveRemoteNotification:(NSDictionary *)userInfo
+    fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    [YMPYandexMetricaPush handleRemoteNotification:userInfo];
+}
+
+...
+...
+@end
+```
+
+## Usage (FIREBASE CLOUD MESSAGE)
 
 ```js
 import AppMetrica from "react-native-appmetrica-next";
-
-// Starts the statistics collection process.
-AppMetrica.activate({
-  apiKey: "...KEY...",
-  sessionTimeout: 120,
-  firstActivationAsUpdate: true,
-});
-
-// Sends a custom event message and additional parameters (optional).
-AppMetrica.reportEvent("My event");
-AppMetrica.reportEvent("My event", { foo: "bar" });
-
-// Send a custom error event.
-AppMetrica.reportError("My error");
-
-// reportUserProfile
-    AppMetrica.activate({
-      apiKey: "...KEY...",
-      sessionTimeout: 120,
-      firstActivationAsUpdate: true,
-    });
-    RNAppMetrica.setUserProfileID('id');
-    RNAppMetrica.reportUserProfile({
-      name: 'Andrey Bondarenko',
-      floor: 'male',
-      age: 34,
-      isNotification: true,
-    });
 
 // init Push SDK example for iOS
  checkPermission = async () => {
@@ -95,8 +180,6 @@ AppMetrica.reportError("My error");
     if (authorizationStatus === messaging.AuthorizationStatus.AUTHORIZED) {
       const deviceToken = await messaging().getToken();
 
-      RNAppMetrica.initPush(deviceToken); -> // for iOS
-      // or
-      RNAppMetrica.initPush(); -> // for Android
+      RNAppMetrica.initPush();
 
 ```
