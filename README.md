@@ -21,7 +21,7 @@ import AppMetrica from 'react-native-appmetrica';
 AppMetrica.activate({
   apiKey: '...KEY...',
   sessionTimeout: 120,
-  firstActivationAsUpdate: true,
+  firstActivationAsUpdate: false,
 });
 
 // Sends a custom event message and additional parameters (optional).
