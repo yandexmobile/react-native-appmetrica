@@ -148,6 +148,7 @@ afterEvaluate { project ->
         publishing {
             publications {
                 maven(MavenPublication) {
+                    artifact androidJavadocJar
                     artifact androidSourcesJar
                 }
             }
