@@ -1,6 +1,11 @@
 # react-native-appmetrica
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
+###What's new here:
+  - Upgraded Versions to 4.2.0
+  - Supporting Apple Silicon M1 Macs
+  - Supporting TypeScript
+
 ## Installation
 
 1. `npm install react-native-appmetrica --save`
@@ -15,7 +20,7 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
 ## Usage
 
 ```js
-import AppMetrica from 'react-native-appmetrica';
+import AppMetrica from '@gennadysx/react-native-appmetrica';
 
 // Starts the statistics collection process.
 AppMetrica.activate({
@@ -31,3 +36,4 @@ AppMetrica.reportEvent('My event', { foo: 'bar' });
 // Send a custom error event.
 AppMetrica.reportError('My error');
 ```
+Modified with <span style="color: #e25555;">&#9829;</span> by GennadySX @2022
