@@ -1,7 +1,7 @@
 # react-native-appmetrica
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
-###What's new here:
+### What's new here:
   - Upgraded Versions to 4.2.0
   - Supporting Apple Silicon M1 Macs
   - Supporting TypeScript
