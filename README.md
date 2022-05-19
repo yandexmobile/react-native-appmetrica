@@ -1,5 +1,9 @@
 # react-native-appmetrica-next
 
+WARNING!!!
+ver 2.0 RN68 >=
+ver 1.0.17 RN67 <=
+
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 react-native-push-next library functionality is expanded [react-native-appmetrica](https://github.com/yandexmobile/react-native-appmetrica)
 
