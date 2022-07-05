@@ -18,17 +18,17 @@
 //   original location:
 //   - https://github.com/facebook/react-native/blob/0.58-stable/local-cli/templates/HelloWorld/android/app/build.gradle
 
-def DEFAULT_COMPILE_SDK_VERSION = 28
-def DEFAULT_BUILD_TOOLS_VERSION = '28.0.3'
-def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 28
+def DEFAULT_COMPILE_SDK_VERSION = 30
+def DEFAULT_BUILD_TOOLS_VERSION = '30.0.2'
+def DEFAULT_MIN_SDK_VERSION = 21
+def DEFAULT_TARGET_SDK_VERSION = 30
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 buildscript {
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
@@ -39,15 +39,16 @@ buildscript {
         repositories {
             google()
             jcenter()
+            mavenCentral()
         }
         dependencies {
-            classpath 'com.android.tools.build:gradle:3.4.1'
+            classpath 'com.android.tools.build:gradle:3.6.4'
         }
     }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', DEFAULT_COMPILE_SDK_VERSION)
@@ -55,6 +56,7 @@ android {
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', DEFAULT_MIN_SDK_VERSION)
         targetSdkVersion safeExtGet('targetSdkVersion', DEFAULT_TARGET_SDK_VERSION)
+        vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
     }
@@ -64,25 +66,27 @@ android {
 }
 
 repositories {
-    // ref: https://www.baeldung.com/maven-local-repository
-    mavenLocal()
-    maven {
+    // ref: https://www.baeldung.com/maven-local-repository  
+    mavenCentral()
+     maven {
         // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
         url "$rootDir/../node_modules/react-native/android"
     }
-    maven {
+    google()
+    jcenter()
+     maven {
         // Android JSC is installed from npm
         url "$rootDir/../node_modules/jsc-android/dist"
     }
-    google()
-    jcenter()
 }
 
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.yandex.android:mobmetricalib:3.13.3'
-    implementation 'com.android.installreferrer:installreferrer:1.1.2'
+    implementation 'com.yandex.android:mobmetricalib:5.0.0'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    implementation 'org.codehaus.groovy:groovy-json:3.0.11'
+     implementation 'androidx.vectordrawable:vectordrawable:1.1.0-beta02'
 }
 
 def configureReactNativePom(def pom) {
@@ -119,12 +123,13 @@ afterEvaluate { project ->
     task androidJavadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += files(android.bootClasspath)
-        classpath += files(project.getConfigurations().getByName('compile').asList())
+        project.getConfigurations().getByName('implementation').setCanBeResolved(true)
+        classpath += files(project.getConfigurations().getByName('implementation').asList())
         include '**/*.java'
     }
 
     task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-        classifier = 'javadoc'
+        archiveClassifier = 'javadoc'
         from androidJavadoc.destinationDir
     }
 
@@ -148,12 +153,11 @@ afterEvaluate { project ->
         archives androidJavadocJar
     }
 
-    task installArchives(type: Upload) {
-        configuration = configurations.archives
-        repositories.mavenDeployer {
-            // Deploy to react-native-event-bridge/maven, ready to publish to npm
-            repository url: "file://${projectDir}/../android/maven"
-            configureReactNativePom pom
+    publishing {
+        repositories {
+            maven {
+                url = uri("${rootProject.projectDir}/maven-repo")
+            }
         }
     }
 }
