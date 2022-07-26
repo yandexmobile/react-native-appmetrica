@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency 'YandexMobileMetrica', '4.2.0'
-  s.dependency 'YandexMobileMetricaPush', '1.1.1'
+  s.dependency 'YandexMobileMetrica', '5.0.0'
+  s.dependency 'YandexMobileMetricaPush', '2.2.0'
 end
