@@ -9,7 +9,7 @@ declare module "@gennadysx/react-native-appmetrica" {
         appVersion?: string,
         crashReporting?: boolean,
         firstActivationAsUpdate?: boolean,
-        location: Location,
+        location?: Location,
         locationTracking?: boolean,
         logs?: boolean,
         sessionTimeout?: number,
