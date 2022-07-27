@@ -1,9 +1,9 @@
 {
   "name": "@gennadysx/react-native-appmetrica",
   "title": "Yandex AppMetrica React Native Plugin | Modified by GennadySX " ,
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "React Native plugin for AppMetrica analytics tool",
-  "main": "index.js",
+  "main": "index.ts",
   "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,7 +33,6 @@
     "name": "YANDEX LLC | GennadySX"
   },
   "license": "MIT",
-  "homepage": "https://appmetrica.yandex.com/docs",
   "peerDependencies": {
     "react-native": ">=0.63.4"
   },

@@ -6,7 +6,7 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-package com.yandex.metrica.plugin.reactnative;
+package com.gennadysx.yandex.metrica.plugin.reactnative;
 
 import java.util.Arrays;
 import java.util.Collections;

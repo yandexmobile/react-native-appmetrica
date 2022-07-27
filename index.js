@@ -1,6 +1,6 @@
 /*
  * Version for React Native
- * © 2020 YANDEX
+ * © 2022 originally YANDEX, modified by GennadySX
  * You may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  * https://yandex.com/legal/appmetrica_sdk_agreement/
@@ -10,55 +10,18 @@ import {NativeModules} from 'react-native';
 
 const {AppMetrica} = NativeModules;
 
-type AppMetricaConfig = {
-  apiKey: string,
-  appVersion?: string,
-  crashReporting?: boolean,
-  firstActivationAsUpdate?: boolean,
-  location: Location,
-  locationTracking?: boolean,
-  logs?: boolean,
-  sessionTimeout?: number,
-  statisticsSending?: boolean,
-  preloadInfo?: PreloadInfo,
-  // Only Android
-  installedAppCollecting?: boolean,
-  maxReportsInDatabaseCount?: number,
-  nativeCrashReporting?: boolean,
-  // Only iOS
-  activationAsSessionStart?: boolean,
-  sessionsAutoTracking?: boolean,
-}
-
-type PreloadInfo = {
-  trackingId: string,
-  additionalInfo?: Object,
-}
-
-type Location = {
-  latitude: number,
-  longitude: number,
-  altitude?: number,
-  accuracy?: number,
-  course?: number,
-  speed?: number,
-  timestamp?: number
-}
-
-type AppMetricaDeviceIdReason = 'UNKNOWN' | 'NETWORK' | 'INVALID_RESPONSE';
-
 export default {
 
-  activate(config: AppMetricaConfig) {
+  activate(config) {
     AppMetrica.activate(config);
   },
 
   // Android
-  async getLibraryApiLevel(): number {
+  async getLibraryApiLevel() {
     return AppMetrica.getLibraryApiLevel();
   },
 
-  async getLibraryVersion(): string {
+  async getLibraryVersion() {
     return AppMetrica.getLibraryVersion();
   },
 
@@ -66,23 +29,23 @@ export default {
     AppMetrica.pauseSession();
   },
 
-  reportAppOpen(deeplink: ?string = null) {
+  reportAppOpen(deeplink = null) {
     AppMetrica.reportAppOpen(deeplink);
   },
 
-  reportError(error: string, reason: Object) {
+  reportError(error, reason) {
     AppMetrica.reportError(error);
   },
 
-  reportEvent(eventName: string, attributes: ?Object = null) {
+  reportEvent(eventName, attributes = null) {
     AppMetrica.reportEvent(eventName, attributes);
   },
 
-  reportReferralUrl(referralUrl: string) {
+  reportReferralUrl(referralUrl) {
     AppMetrica.reportReferralUrl(referralUrl);
   },
 
-  requestAppMetricaDeviceID(listener: (deviceId?: String, reason?: AppMetricaDeviceIdReason) => void) {
+  requestAppMetricaDeviceID(listener) {
     AppMetrica.requestAppMetricaDeviceID(listener);
   },
 
@@ -94,19 +57,19 @@ export default {
     AppMetrica.sendEventsBuffer();
   },
 
-  setLocation(location: ?Location) {
+  setLocation(location) {
     AppMetrica.setLocation(location);
   },
 
-  setLocationTracking(enabled: boolean) {
+  setLocationTracking(enabled) {
     AppMetrica.setLocationTracking(enabled);
   },
 
-  setStatisticsSending(enabled: boolean) {
+  setStatisticsSending(enabled) {
     AppMetrica.setStatisticsSending(enabled);
   },
 
-  setUserProfileID(userProfileID?: string) {
+  setUserProfileID(userProfileID) {
     AppMetrica.setUserProfileID(userProfileID);
-  },
+  }
 };

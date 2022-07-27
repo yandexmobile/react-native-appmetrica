@@ -6,7 +6,7 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-package com.yandex.metrica.plugin.reactnative;
+package com.gennadysx.yandex.metrica.plugin.reactnative;
 
 import android.location.Location;
 
@@ -31,9 +31,9 @@ abstract class Utils {
         if (configMap.hasKey("firstActivationAsUpdate")) {
             builder.handleFirstActivationAsUpdate(configMap.getBoolean("firstActivationAsUpdate"));
         }
-        if (configMap.hasKey("installedAppCollecting")) {
+  /*      if (configMap.hasKey("installedAppCollecting")) {
             builder.withInstalledAppCollecting(configMap.getBoolean("installedAppCollecting"));
-        }
+        }*/
         if (configMap.hasKey("location")) {
             builder.withLocation(toLocation(configMap.getMap("location")));
         }

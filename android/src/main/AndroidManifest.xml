@@ -7,6 +7,6 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.yandex.metrica.plugin.reactnative">
+          package="com.gennadysx.yandex.metrica.plugin.reactnative">
 
 </manifest>

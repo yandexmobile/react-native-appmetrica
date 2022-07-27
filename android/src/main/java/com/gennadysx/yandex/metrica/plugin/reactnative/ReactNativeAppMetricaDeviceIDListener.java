@@ -6,7 +6,7 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-package com.yandex.metrica.plugin.reactnative;
+package com.gennadysx.yandex.metrica.plugin.reactnative;
 
 import com.facebook.react.bridge.Callback;
 import com.yandex.metrica.AppMetricaDeviceIDListener;
