@@ -3,7 +3,7 @@
   "title": "Yandex AppMetrica React Native Plugin | Modified by GennadySX " ,
   "version": "2.1.2",
   "description": "React Native plugin for AppMetrica analytics tool",
-  "main": "index.ts",
+  "main": "index.js",
   "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
