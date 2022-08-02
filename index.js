@@ -9,7 +9,7 @@
 import {NativeModules} from 'react-native';
 
 const {AppMetrica} = NativeModules;
-//tessdd
+//tessddss
 type AppMetricaConfig = {
   apiKey: string,
   appVersion?: string,
