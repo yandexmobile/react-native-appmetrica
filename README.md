@@ -12,6 +12,22 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
   * if `${PROJECT_DIR}/ios/Podfile` don't exists: \
   [Setup AppMetrica](https://appmetrica.yandex.com/docs/mobile-sdk-dg/tasks/ios-quickstart.html) and placed frameworks at `${PROJECT_DIR}/ios/Frameworks`
 
+## Integrate into an Expo managed project
+
+ 1. Install `expo-dev-client`:
+
+ ```shell
+ expo install expo-dev-client
+ ```
+
+ 1. Add `react-native-appmetrica` into the `plugins` array inside the `app.json` file of your app:
+
+ ```shell
+ "plugins": [
+   ["react-native-appmetrica", {}],
+ ],
+ ```
+
 ## Usage
 
 ```js
