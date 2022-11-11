@@ -1,5 +1,5 @@
 const { createRunOncePlugin } = require('@expo/config-plugins')
-const pkg = require('react-native-appmetrica/package.json')
+const pkg = require('rn-appmetrica/package.json')
 
 const withAppMetrica = (config) => config
 
