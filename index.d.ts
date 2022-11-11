@@ -1,4 +1,4 @@
-declare module 'react-native-appmetrica' {
+declare module 'rn-appmetrica' {
   type AppMetricaConfig = {
     apiKey: string
     appVersion?: string
