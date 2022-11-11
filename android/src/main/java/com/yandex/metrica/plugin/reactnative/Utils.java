@@ -31,9 +31,6 @@ abstract class Utils {
         if (configMap.hasKey("firstActivationAsUpdate")) {
             builder.handleFirstActivationAsUpdate(configMap.getBoolean("firstActivationAsUpdate"));
         }
-        if (configMap.hasKey("installedAppCollecting")) {
-            builder.withInstalledAppCollecting(configMap.getBoolean("installedAppCollecting"));
-        }
         if (configMap.hasKey("location")) {
             builder.withLocation(toLocation(configMap.getMap("location")));
         }
