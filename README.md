@@ -1,4 +1,4 @@
-# rn-appmetrica
+# rn-yandex-appmetrica
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
 ## About package
@@ -10,7 +10,7 @@ This is a temporary solution. This repository includes pull requests from the [m
 ## Installation
 
  ```shell
-  yarn add rn-appmetrica
+  yarn add rn-yandex-appmetrica
  ```
 ## Integration into a pure React Native project
 
@@ -31,18 +31,18 @@ This is a temporary solution. This repository includes pull requests from the [m
  expo install expo-dev-client
  ```
 
- 1. Add `rn-appmetrica` into the `plugins` array inside the `app.json` file of your app:
+ 1. Add `rn-yandex-appmetrica` into the `plugins` array inside the `app.json` file of your app:
 
  ```shell
  "plugins": [
-   ["rn-appmetrica", {}],
+   ["rn-yandex-appmetrica", {}],
  ],
  ```
 
 ## Usage
 
 ```js
-import AppMetrica from 'rn-appmetrica';
+import AppMetrica from 'rn-yandex-appmetrica';
 
 // Starts the statistics collection process.
 AppMetrica.activate({

@@ -1,5 +1,5 @@
 {
-  "name": "rn-appmetrica",
+  "name": "rn-yandex-appmetrica",
   "title": "Yandex AppMetrica React Native Plugin",
   "version": "2.0.0",
   "description": "React Native plugin for AppMetrica analytics tool",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whidrubeld/rn-appmetrica.git"
+    "url": "git+https://github.com/whidrubeld/rn-yandex-appmetrica.git"
   },
   "keywords": [
     "yandex",

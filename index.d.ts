@@ -1,4 +1,4 @@
-declare module 'rn-appmetrica' {
+declare module 'rn-yandex-appmetrica' {
   type AppMetricaConfig = {
     apiKey: string
     appVersion?: string
