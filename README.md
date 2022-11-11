@@ -1,7 +1,18 @@
-# react-native-appmetrica
+# rn-appmetrica
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
+## About package
+This is a temporary solution. This repository includes pull requests from the [main repository](https://github.com/yandexmobile/react-native-appmetrica) and will be supported until all critical updates are included. Added updates:
+1. [Typescript support](https://github.com/yandexmobile/react-native-appmetrica/pull/46)
+2. [Fix android build](https://github.com/yandexmobile/react-native-appmetrica/pull/62)
+3. [EAS build support](https://github.com/yandexmobile/react-native-appmetrica/pull/65)
+
 ## Installation
+
+ ```shell
+  yarn add rn-appmetrica
+ ```
+## Integration into a pure React Native project
 
 1. `npm install react-native-appmetrica --save`
 2. If React Native version <= 0.59: \
@@ -20,18 +31,18 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
  expo install expo-dev-client
  ```
 
- 1. Add `react-native-appmetrica` into the `plugins` array inside the `app.json` file of your app:
+ 1. Add `rn-appmetrica` into the `plugins` array inside the `app.json` file of your app:
 
  ```shell
  "plugins": [
-   ["react-native-appmetrica", {}],
+   ["rn-appmetrica", {}],
  ],
  ```
 
 ## Usage
 
 ```js
-import AppMetrica from 'react-native-appmetrica';
+import AppMetrica from 'rn-appmetrica';
 
 // Starts the statistics collection process.
 AppMetrica.activate({
