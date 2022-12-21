@@ -47,6 +47,35 @@ type Location = {
 
 type AppMetricaDeviceIdReason = 'UNKNOWN' | 'NETWORK' | 'INVALID_RESPONSE';
 
+type Currency = 'RUB' | 'USD' | 'EUR';
+type Screen = {
+  name?: string,
+  categoryComponents?: string[],
+  searchQuery?: string,
+  payload?: Object,
+}
+type Product = {
+  name?: string,
+  sku: string,
+  categoryComponents?: string[],
+  payload?: Object,
+  promoCodes?: string[],
+  currency: Currency,
+  actualPrice?: string,
+  originalPrice?: string,
+}
+type Referrer = {
+  screen: Screen,
+  type: string,
+  identifier: string,
+}
+type CartItem = {
+  product: Product,
+  quantity: number,
+  revenue: number,
+  referrer?: Referrer,
+}
+
 export default {
 
   activate(config: AppMetricaConfig) {
@@ -80,6 +109,26 @@ export default {
 
   reportReferralUrl(referralUrl: string) {
     AppMetrica.reportReferralUrl(referralUrl);
+  },
+
+  // E-commerce
+  showScreen(screen: Screen) {
+    AppMetrica.showScreen(screen);
+  },
+  showProductCard(product: Product, screen: Screen) {
+    AppMetrica.showProductCard(product, screen);
+  },
+  addToCart(cartItem: CartItem) {
+    AppMetrica.addToCart(cartItem);
+  },
+  removeFromCart(cartItem: CartItem) {
+    AppMetrica.removeFromCart(cartItem);
+  },
+  beginCheckout(cartItems: CartItem[], identifier: String, payload: Object) {
+    AppMetrica.beginCheckout(cartItems, identifier, payload);
+  },
+  purchase(cartItems: CartItem[], identifier: String, payload: Object) {
+    AppMetrica.purchase(cartItems, identifier, payload);
   },
 
   requestAppMetricaDeviceID(listener: (deviceId?: String, reason?: AppMetricaDeviceIdReason) => void) {
