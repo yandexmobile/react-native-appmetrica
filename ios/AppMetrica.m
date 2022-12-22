@@ -76,61 +76,45 @@ RCT_EXPORT_METHOD(reportReferralUrl:(NSString *)referralUrl)
     return screenObj;
 }
 
-- (YMMECommerceProduct *)createProduct:(NSDictionary *)product {
+- (YMMECommerceReferrer *)createReferrer:(NSDictionary *)referrer {
+    if (referrer == nil) return nil;
+    YMMECommerceScreen *screenObj = referrer[@"screen"] != nil ? [self createScreen:referrer[@"screen"]] : nil;
+    return [[YMMECommerceReferrer alloc] initWithType:referrer[@"type"]
+                                           identifier:referrer[@"identifier"]
+                                               screen:screenObj];
+}
+
+- (YMMECommercePrice *)createPrice:(NSDictionary *)price {
+    if (price == nil) return nil;
+    NSDictionary *fiatDict = price[@"fiat"];
+    NSNumber *fiatValue = fiatDict[@"value"];
+    YMMECommerceAmount *fiat = [[YMMECommerceAmount alloc] initWithUnit:fiatDict[@"currency"] value:[NSDecimalNumber decimalNumberWithDecimal:fiatValue.decimalValue]];
     // TODO: internalComponents
-    NSNumber *actualPriceNumber = product[@"actualPrice"];
-    NSNumber *originalPriceNumber = product[@"originalPrice"];
-    
-    YMMECommercePrice *actualPrice, *originalPrice;
-    
-    if (actualPriceNumber != nil) {
-        YMMECommerceAmount *actualFiat = [[YMMECommerceAmount alloc] initWithUnit:product[@"currency"] value:[NSDecimalNumber decimalNumberWithDecimal:actualPriceNumber.decimalValue]];
-        actualPrice = [[YMMECommercePrice alloc] initWithFiat:actualFiat internalComponents:@[]]; // TODO:
-    }
-    if (originalPriceNumber != nil) {
-        YMMECommerceAmount *originalFiat = [[YMMECommerceAmount alloc] initWithUnit:product[@"currency"] value:[NSDecimalNumber decimalNumberWithDecimal:originalPriceNumber.decimalValue]];
-        originalPrice = [[YMMECommercePrice alloc] initWithFiat:originalFiat internalComponents:@[]]; // TODO:
-    }
-    
-    YMMECommerceProduct *productObj = [[YMMECommerceProduct alloc] initWithSKU:product[@"sku"]
-                                                                          name:product[@"name"]
-                                                            categoryComponents:product[@"categoryComponents"]
-                                                                       payload:product[@"payload"]
-                                                                   actualPrice:actualPrice
-                                                                 originalPrice:originalPrice
-                                                                    promoCodes:product[@"promoCodes"]];
-    
-    return productObj;
+    return [[YMMECommercePrice alloc] initWithFiat:fiat];
+}
+
+- (YMMECommerceProduct *)createProduct:(NSDictionary *)product {
+    return [[YMMECommerceProduct alloc] initWithSKU:product[@"sku"]
+                                               name:product[@"name"]
+                                 categoryComponents:product[@"categoryComponents"]
+                                            payload:product[@"payload"]
+                                        actualPrice:[self createPrice:product[@"actualPrice"]]
+                                      originalPrice:[self createPrice:product[@"originalPrice"]]
+                                         promoCodes:product[@"promoCodes"]];
 }
 
 - (YMMECommerceCartItem *)createCartItem:(NSDictionary *)cartItem  {
     YMMECommerceProduct *productObj = [self createProduct:cartItem[@"product"]];
+    
     NSNumber *quantityNumber = cartItem[@"quantity"];
-    NSNumber *revenueNumber = cartItem[@"revenue"];
-        
     if (quantityNumber == nil) {
         quantityNumber = [[NSNumber alloc] initWithInt:1];
     }
-    
-    YMMECommercePrice *revenueObj;
-    if (revenueNumber != nil) {
-        YMMECommerceAmount *revenueFiat = [[YMMECommerceAmount alloc] initWithUnit:cartItem[@"product"][@"currency"] value:[NSDecimalNumber decimalNumberWithDecimal:revenueNumber.decimalValue]];
-        revenueObj = [[YMMECommercePrice alloc] initWithFiat:revenueFiat];
-    }
-    
-    NSDictionary *referrer = cartItem[@"referrer"];
-    YMMECommerceReferrer *referrerObj;
-    if (referrer != nil) {
-        YMMECommerceScreen *screenObj = referrer[@"screen"] != nil ? [self createScreen:referrer[@"screen"]] : nil;
-        referrerObj = [[YMMECommerceReferrer alloc] initWithType:referrer[@"type"]
-                                                      identifier:referrer[@"identifier"]
-                                                          screen:screenObj];
-    }
-    
+            
     YMMECommerceCartItem *item = [[YMMECommerceCartItem alloc] initWithProduct:productObj
                                                                       quantity:[NSDecimalNumber decimalNumberWithDecimal:quantityNumber.decimalValue]
-                                                                       revenue:revenueObj
-                                                                      referrer:referrerObj];
+                                                                       revenue:[self createPrice:cartItem[@"revenue"]]
+                                                                      referrer:[self createReferrer:cartItem[@"referrer"]]];
     
     return item;
 }
@@ -145,8 +129,13 @@ RCT_EXPORT_METHOD(showProductCard:(NSDictionary *)product:(NSDictionary *)screen
     YMMECommerceProduct *productObj = [self createProduct:product];
     YMMECommerceScreen *screenObj = [self createScreen:screen];
     
-    [YMMYandexMetrica reportECommerce:[YMMECommerce showProductCardEventWithProduct:productObj
-                                                                             screen:screenObj]
+    [YMMYandexMetrica reportECommerce:[YMMECommerce showProductCardEventWithProduct:productObj screen:screenObj]
+                            onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(showProductDetails:(NSDictionary *)product:(NSDictionary *)referrer) {
+    [YMMYandexMetrica reportECommerce:[YMMECommerce showProductDetailsEventWithProduct:[self createProduct:product]
+                                                                              referrer:[self createReferrer:referrer]]
                             onFailure:nil];
 }
 
