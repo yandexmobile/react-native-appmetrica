@@ -48,6 +48,14 @@ type Location = {
 type AppMetricaDeviceIdReason = 'UNKNOWN' | 'NETWORK' | 'INVALID_RESPONSE';
 
 type Currency = 'RUB' | 'USD' | 'EUR';
+type Fiat = {
+  currency: Currency,
+  value: number,
+}
+type Price = {
+  fiat: Fiat,
+  // internalComponents: InternalComponent[]
+}
 type Screen = {
   name?: string,
   categoryComponents?: string[],
@@ -61,8 +69,8 @@ type Product = {
   payload?: Object,
   promoCodes?: string[],
   currency: Currency,
-  actualPrice?: string,
-  originalPrice?: string,
+  actualPrice?: Price,
+  originalPrice?: Price,
 }
 type Referrer = {
   screen: Screen,
@@ -72,7 +80,7 @@ type Referrer = {
 type CartItem = {
   product: Product,
   quantity: number,
-  revenue: number,
+  revenue: Price,
   referrer?: Referrer,
 }
 
@@ -117,6 +125,9 @@ export default {
   },
   showProductCard(product: Product, screen: Screen) {
     AppMetrica.showProductCard(product, screen);
+  },
+  showProductDetails(product: Product, referrer: Referrer) {
+    AppMetrica.showProductDetails(product, referrer);
   },
   addToCart(cartItem: CartItem) {
     AppMetrica.addToCart(cartItem);
