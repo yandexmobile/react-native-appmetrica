@@ -10,12 +10,18 @@ package com.yandex.metrica.plugin.reactnative;
 
 import android.location.Location;
 
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.yandex.metrica.PreloadInfo;
 import com.yandex.metrica.YandexMetricaConfig;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 abstract class Utils {
 
@@ -109,5 +115,27 @@ abstract class Utils {
         }
 
         return builder.build();
+    }
+
+    static List<String> toListString(ReadableArray readableArray) {
+        if (readableArray == null) return null;
+        ArrayList<Object> list = readableArray.toArrayList();
+        List<String> strings = new ArrayList<>(list.size());
+        for (Object object : list) {
+            strings.add(Objects.toString(object, null));
+        }
+        return strings;
+    }
+
+    static Map<String, String> toMapString(ReadableMap readableMap) {
+        if (readableMap == null) return null;
+        Map<String, Object> map = readableMap.toHashMap();
+        Map<String, String> newMap = new HashMap<String, String>();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (entry.getValue() instanceof String) {
+                newMap.put(entry.getKey(), (String) entry.getValue());
+            }
+        }
+        return newMap;
     }
 }
