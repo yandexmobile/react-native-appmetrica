@@ -10,11 +10,11 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = { "Yandex LLC" => "appmetrica@yandex-team.com" }
   s.platforms    = { :ios => "9.0" }
-  s.source       = { :git => "https://github.com/yandexmobile/react-native-appmetrica.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/nikolay-kapustin/react-native-appmetrica.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
 
   s.dependency "React"
-  s.dependency 'YandexMobileMetrica', '3.9.4'
+  s.dependency 'YandexMobileMetrica', '4.4.0'
 end
