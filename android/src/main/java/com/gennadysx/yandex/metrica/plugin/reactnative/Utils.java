@@ -38,7 +38,7 @@ abstract class Utils {
             builder.withLocation(toLocation(configMap.getMap("location")));
         }
         if (configMap.hasKey("locationTracking")) {
-            builder.withLocationTracking(configMap.getBoolean("locationTracking"));
+            builder.withLocationTracking(false);
         }
         if (configMap.hasKey("logs") && configMap.getBoolean("logs")) {
             builder.withLogs();
