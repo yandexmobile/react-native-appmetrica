@@ -1,11 +1,11 @@
-# react-native-appmetrica
+# forked-react-native-appmetrica
 React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both iOS and Android.
 
 ## Installation
 
-1. `npm install react-native-appmetrica --save`
+1. `npm install forked-react-native-appmetrica --save`
 2. If React Native version <= 0.59: \
-  `react-native link react-native-appmetrica`
+  `react-native link forked-react-native-appmetrica`
 3. iOS only
   * if `${PROJECT_DIR}/ios/Podfile` exists: \
   `npx pod-install`
@@ -15,7 +15,7 @@ React Native bridge to the [AppMetrica](https://appmetrica.yandex.com/) on both 
 ## Usage
 
 ```js
-import AppMetrica from 'react-native-appmetrica';
+import AppMetrica from 'forked-react-native-appmetrica';
 
 // Starts the statistics collection process.
 AppMetrica.activate({
