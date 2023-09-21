@@ -65,6 +65,121 @@ RCT_EXPORT_METHOD(reportReferralUrl:(NSString *)referralUrl)
     [YMMYandexMetrica reportReferralUrl:[NSURL URLWithString:referralUrl]];
 }
 
+///*
+/// E-commerce
+///
+- (YMMECommerceScreen *)createScreen:(NSDictionary *)screen {
+    YMMECommerceScreen *screenObj = [[YMMECommerceScreen alloc] initWithName:screen[@"name"]
+                                                          categoryComponents:screen[@"categoryComponents"]
+                                                                 searchQuery:screen[@"searchQuery"]
+                                                                     payload:screen[@"payload"]];
+    return screenObj;
+}
+
+- (YMMECommerceReferrer *)createReferrer:(NSDictionary *)referrer {
+    if (referrer == nil) return nil;
+    YMMECommerceScreen *screenObj = referrer[@"screen"] != nil ? [self createScreen:referrer[@"screen"]] : nil;
+    return [[YMMECommerceReferrer alloc] initWithType:referrer[@"type"]
+                                           identifier:referrer[@"identifier"]
+                                               screen:screenObj];
+}
+
+- (YMMECommercePrice *)createPrice:(NSDictionary *)price {
+    if (price == nil) return nil;
+    NSDictionary *fiatDict = price[@"fiat"];
+    NSNumber *fiatValue = fiatDict[@"value"];
+    YMMECommerceAmount *fiat = [[YMMECommerceAmount alloc] initWithUnit:fiatDict[@"currency"] value:[NSDecimalNumber decimalNumberWithDecimal:fiatValue.decimalValue]];
+    // TODO: internalComponents
+    return [[YMMECommercePrice alloc] initWithFiat:fiat];
+}
+
+- (YMMECommerceProduct *)createProduct:(NSDictionary *)product {
+    return [[YMMECommerceProduct alloc] initWithSKU:product[@"sku"]
+                                               name:product[@"name"]
+                                 categoryComponents:product[@"categoryComponents"]
+                                            payload:product[@"payload"]
+                                        actualPrice:[self createPrice:product[@"actualPrice"]]
+                                      originalPrice:[self createPrice:product[@"originalPrice"]]
+                                         promoCodes:product[@"promoCodes"]];
+}
+
+- (YMMECommerceCartItem *)createCartItem:(NSDictionary *)cartItem  {
+    YMMECommerceProduct *productObj = [self createProduct:cartItem[@"product"]];
+    
+    NSNumber *quantityNumber = cartItem[@"quantity"];
+    if (quantityNumber == nil) {
+        quantityNumber = [[NSNumber alloc] initWithInt:1];
+    }
+            
+    YMMECommerceCartItem *item = [[YMMECommerceCartItem alloc] initWithProduct:productObj
+                                                                      quantity:[NSDecimalNumber decimalNumberWithDecimal:quantityNumber.decimalValue]
+                                                                       revenue:[self createPrice:cartItem[@"revenue"]]
+                                                                      referrer:[self createReferrer:cartItem[@"referrer"]]];
+    
+    return item;
+}
+
+RCT_EXPORT_METHOD(showScreen:(NSDictionary *)screen) {
+    YMMECommerceScreen *screenObj = [self createScreen:screen];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce showScreenEventWithScreen:screenObj] onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(showProductCard:(NSDictionary *)product:(NSDictionary *)screen) {
+    YMMECommerceProduct *productObj = [self createProduct:product];
+    YMMECommerceScreen *screenObj = [self createScreen:screen];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce showProductCardEventWithProduct:productObj screen:screenObj]
+                            onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(showProductDetails:(NSDictionary *)product:(NSDictionary *)referrer) {
+    [YMMYandexMetrica reportECommerce:[YMMECommerce showProductDetailsEventWithProduct:[self createProduct:product]
+                                                                              referrer:[self createReferrer:referrer]]
+                            onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(addToCart:(NSDictionary *)cartItem) {
+    YMMECommerceCartItem *item = [self createCartItem:cartItem];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce addCartItemEventWithItem:item] onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(removeFromCart:(NSDictionary *)cartItem) {
+    YMMECommerceCartItem *item = [self createCartItem:cartItem];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce removeCartItemEventWithItem:item] onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(beginCheckout:(NSArray<NSDictionary *> *)cartItems identifier:(NSString *)identifier payload:(NSDictionary *)payload) {
+    NSMutableArray *cartItemsObj = [[NSMutableArray alloc] init];
+    for (int i = 0; i < cartItems.count; i++) {
+        [cartItemsObj addObject:[self createCartItem:cartItems[i]]];
+    }
+    
+    YMMECommerceOrder *order = [[YMMECommerceOrder alloc] initWithIdentifier:identifier
+                                                                   cartItems:cartItemsObj
+                                                                     payload:payload];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce beginCheckoutEventWithOrder:order] onFailure:nil];
+}
+
+RCT_EXPORT_METHOD(purchase:(NSArray<NSDictionary *> *)cartItems identifier:(NSString *)identifier payload:(NSDictionary *)payload) {
+    NSMutableArray *cartItemsObj = [[NSMutableArray alloc] init];
+    for (int i = 0; i < cartItems.count; i++) {
+        [cartItemsObj addObject:[self createCartItem:cartItems[i]]];
+    }
+    
+    YMMECommerceOrder *order = [[YMMECommerceOrder alloc] initWithIdentifier:identifier
+                                                                   cartItems:cartItemsObj
+                                                                     payload:payload];
+    
+    [YMMYandexMetrica reportECommerce:[YMMECommerce purchaseEventWithOrder:order] onFailure:nil];
+}
+///
+/// End of E-Commerce
+///
+
 RCT_EXPORT_METHOD(requestAppMetricaDeviceID:(RCTResponseSenderBlock)listener)
 {
     YMMAppMetricaDeviceIDRetrievingBlock completionBlock = ^(NSString *_Nullable appMetricaDeviceID, NSError *_Nullable error) {
