@@ -81,7 +81,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
-    implementation 'com.yandex.android:mobmetricalib:3.13.3'
+    implementation 'com.yandex.android:mobmetricalib:5.3.0'
     implementation 'com.android.installreferrer:installreferrer:1.1.2'
 }
 
