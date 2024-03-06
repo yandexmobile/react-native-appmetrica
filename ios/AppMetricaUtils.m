@@ -81,6 +81,26 @@
         id<YMMNotificationsEnabledAttribute> isNotificationAttribute = [YMMProfileAttribute notificationsEnabled];
         [profile apply:[isNotificationAttribute withValue:configDict[@"isNotification"]]];
     }
+    if (configDict[@"isUsedHousingSearch"] != nil) {
+        id<YMMCustomBoolAttribute> isUsedHousingSearch = [YMMProfileAttribute customBool:@"Воспользовался поиском жилья"];
+        [profile apply:[isUsedHousingSearch withValue:configDict[@"isUsedHousingSearch"]]];
+    }
+    if (configDict[@"isAddObjectFavorites"] != nil) {
+        id<YMMCustomBoolAttribute> isAddObjectFavorites = [YMMProfileAttribute customBool:@"Добавил объект в «Избранное»"];
+        [profile apply:[isAddObjectFavorites withValue:configDict[@"isAddObjectFavorites"]]];
+    }
+    if (configDict[@"isStartedBookingProcess"] != nil) {
+        id<YMMCustomBoolAttribute> isStartedBookingProcess = [YMMProfileAttribute customBool:@"Начал процесс бронирования"];
+        [profile apply:[isStartedBookingProcess withValue:configDict[@"isStartedBookingProcess"]]];
+    }
+    if (configDict[@"isSuccessBooking"] != nil) {
+        id<YMMCustomBoolAttribute> isSuccessBooking = [YMMProfileAttribute customBool:@"Успешная бронь"];
+        [profile apply:[isSuccessBooking withValue:configDict[@"isSuccessBooking"]]];
+    }
+    if (configDict[@"isSuccessRegistered"] != nil) {
+        id<YMMCustomBoolAttribute> isSuccessRegistered = [YMMProfileAttribute customBool:@"Успешно зарегистрировался"];
+        [profile apply:[isSuccessRegistered withValue:configDict[@"isSuccessRegistered"]]];
+    }
 
     return profile;
 }

@@ -41,6 +41,21 @@ abstract class Utils {
         if (configMap.hasKey("isNotification")) {
             userProfile.apply(Attribute.notificationsEnabled().withValue(configMap.getBoolean("isNotification")));
         }
+        if (configMap.hasKey("isUsedHousingSearch")) {
+            userProfile.apply(Attribute.customBoolean("Воспользовался поиском жилья").withValue(configMap.getBoolean("isUsedHousingSearch")));
+        }
+        if (configMap.hasKey("isAddObjectFavorites")) {
+            userProfile.apply(Attribute.customBoolean("Добавил объект в «Избранное»").withValue(configMap.getBoolean("isAddObjectFavorites")));
+        }
+        if (configMap.hasKey("isStartedBookingProcess")) {
+            userProfile.apply(Attribute.customBoolean("Начал процесс бронирования").withValue(configMap.getBoolean("isStartedBookingProcess")));
+        }
+        if (configMap.hasKey("isSuccessBooking")) {
+            userProfile.apply(Attribute.customBoolean("Успешная бронь").withValue(configMap.getBoolean("isSuccessBooking")));
+        }
+        if (configMap.hasKey("isSuccessRegistered")) {
+            userProfile.apply(Attribute.customBoolean("Успешно зарегистрировался").withValue(configMap.getBoolean("isSuccessRegistered")));
+        }
         return userProfile.build();
     }
 
