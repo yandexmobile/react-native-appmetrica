@@ -52,6 +52,59 @@
     return configuration;
 }
 
+
++ (YMMMutableUserProfile *)configurationForUserProfile:(NSDictionary *)configDict
+{
+    YMMMutableUserProfile *profile = [[YMMMutableUserProfile alloc] init];
+    
+    id<YMMCustomCounterAttribute> timeLeftAttribute = [YMMProfileAttribute customCounter:@"time_left"];
+    [profile apply:[timeLeftAttribute withDelta:-4.42]];
+    
+    if (configDict[@"name"] != nil) {
+        id<YMMNameAttribute> nameAttribute = [YMMProfileAttribute name];
+        [profile apply:[nameAttribute withValue:configDict[@"name"]]];
+    }
+    if (configDict[@"floor"] != nil && [configDict[@"floor"] isEqualToString:@"male"]) {
+        id<YMMGenderAttribute> genderAttribute = [YMMProfileAttribute gender];
+        [profile apply:[genderAttribute withValue:YMMGenderTypeMale]];
+    }
+    if (configDict[@"floor"] != nil && [configDict[@"floor"] isEqualToString:@"female"]) {
+        id<YMMGenderAttribute> genderAttribute = [YMMProfileAttribute gender];
+        [profile apply:[genderAttribute withValue:YMMGenderTypeFemale]];
+    }
+    if (configDict[@"age"] != nil) {
+        NSNumber *age = configDict[@"age"];
+        id<YMMBirthDateAttribute> birthDateAttribute = [YMMProfileAttribute birthDate];
+        [profile apply:[birthDateAttribute withAge:[age unsignedIntegerValue]]];
+    }
+    if (configDict[@"isNotification"] != nil) {
+        id<YMMNotificationsEnabledAttribute> isNotificationAttribute = [YMMProfileAttribute notificationsEnabled];
+        [profile apply:[isNotificationAttribute withValue:configDict[@"isNotification"]]];
+    }
+    if (configDict[@"isUsedHousingSearch"] != nil) {
+        id<YMMCustomBoolAttribute> isUsedHousingSearch = [YMMProfileAttribute customBool:@"Воспользовался поиском жилья"];
+        [profile apply:[isUsedHousingSearch withValue:configDict[@"isUsedHousingSearch"]]];
+    }
+    if (configDict[@"isAddObjectFavorites"] != nil) {
+        id<YMMCustomBoolAttribute> isAddObjectFavorites = [YMMProfileAttribute customBool:@"Добавил объект в «Избранное»"];
+        [profile apply:[isAddObjectFavorites withValue:configDict[@"isAddObjectFavorites"]]];
+    }
+    if (configDict[@"isStartedBookingProcess"] != nil) {
+        id<YMMCustomBoolAttribute> isStartedBookingProcess = [YMMProfileAttribute customBool:@"Начал процесс бронирования"];
+        [profile apply:[isStartedBookingProcess withValue:configDict[@"isStartedBookingProcess"]]];
+    }
+    if (configDict[@"isSuccessBooking"] != nil) {
+        id<YMMCustomBoolAttribute> isSuccessBooking = [YMMProfileAttribute customBool:@"Успешная бронь"];
+        [profile apply:[isSuccessBooking withValue:configDict[@"isSuccessBooking"]]];
+    }
+    if (configDict[@"isSuccessRegistered"] != nil) {
+        id<YMMCustomBoolAttribute> isSuccessRegistered = [YMMProfileAttribute customBool:@"Успешно зарегистрировался"];
+        [profile apply:[isSuccessRegistered withValue:configDict[@"isSuccessRegistered"]]];
+    }
+
+    return profile;
+}
+
 + (CLLocation *)locationForDictionary:(NSDictionary *)locationDict
 {
     if (locationDict == nil) {

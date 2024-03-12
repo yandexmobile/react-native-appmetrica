@@ -9,15 +9,55 @@
 package com.yandex.metrica.plugin.reactnative;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.yandex.metrica.PreloadInfo;
 import com.yandex.metrica.YandexMetricaConfig;
+import com.yandex.metrica.profile.GenderAttribute;
+import com.yandex.metrica.profile.UserProfile;
+import com.yandex.metrica.profile.Attribute;
 
 import java.util.Iterator;
 import java.util.Map;
 
 abstract class Utils {
+
+    static UserProfile toYandexProfileConfig(ReadableMap configMap) {
+        UserProfile.Builder userProfile = UserProfile.newBuilder();
+        if (configMap.hasKey("name")) {
+            userProfile.apply(Attribute.name().withValue(configMap.getString("name")));
+        }
+        String floor = configMap.getString("floor");
+        Log.w("TAG", floor);
+        if (configMap.hasKey("floor") &&  "male".equals(configMap.getString("floor"))) {
+            userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.MALE));
+        } else if(configMap.hasKey("floor") && "female".equals(configMap.getString("floor"))) {
+            userProfile.apply(Attribute.gender().withValue(GenderAttribute.Gender.FEMALE));
+        }
+        if (configMap.hasKey("age")) {
+            userProfile.apply(Attribute.birthDate().withAge(configMap.getInt("age")));
+        }
+        if (configMap.hasKey("isNotification")) {
+            userProfile.apply(Attribute.notificationsEnabled().withValue(configMap.getBoolean("isNotification")));
+        }
+        if (configMap.hasKey("isUsedHousingSearch")) {
+            userProfile.apply(Attribute.customBoolean("Воспользовался поиском жилья").withValue(configMap.getBoolean("isUsedHousingSearch")));
+        }
+        if (configMap.hasKey("isAddObjectFavorites")) {
+            userProfile.apply(Attribute.customBoolean("Добавил объект в «Избранное»").withValue(configMap.getBoolean("isAddObjectFavorites")));
+        }
+        if (configMap.hasKey("isStartedBookingProcess")) {
+            userProfile.apply(Attribute.customBoolean("Начал процесс бронирования").withValue(configMap.getBoolean("isStartedBookingProcess")));
+        }
+        if (configMap.hasKey("isSuccessBooking")) {
+            userProfile.apply(Attribute.customBoolean("Успешная бронь").withValue(configMap.getBoolean("isSuccessBooking")));
+        }
+        if (configMap.hasKey("isSuccessRegistered")) {
+            userProfile.apply(Attribute.customBoolean("Успешно зарегистрировался").withValue(configMap.getBoolean("isSuccessRegistered")));
+        }
+        return userProfile.build();
+    }
 
     static YandexMetricaConfig toYandexMetricaConfig(ReadableMap configMap) {
         YandexMetricaConfig.Builder builder = YandexMetricaConfig.newConfigBuilder(configMap.getString("apiKey"));
@@ -31,9 +71,9 @@ abstract class Utils {
         if (configMap.hasKey("firstActivationAsUpdate")) {
             builder.handleFirstActivationAsUpdate(configMap.getBoolean("firstActivationAsUpdate"));
         }
-        if (configMap.hasKey("installedAppCollecting")) {
-            builder.withInstalledAppCollecting(configMap.getBoolean("installedAppCollecting"));
-        }
+        // if (configMap.hasKey("installedAppCollecting")) {
+        //     builder.withInstalledAppCollecting(configMap.getBoolean("installedAppCollecting"));
+        // }
         if (configMap.hasKey("location")) {
             builder.withLocation(toLocation(configMap.getMap("location")));
         }

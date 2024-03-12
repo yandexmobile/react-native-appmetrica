@@ -6,9 +6,9 @@
  * https://yandex.com/legal/appmetrica_sdk_agreement/
  */
 
-import {NativeModules} from 'react-native';
+import { NativeModules, Platform } from "react-native";
 
-const {AppMetrica} = NativeModules;
+const { AppMetrica } = NativeModules;
 
 type AppMetricaConfig = {
   apiKey: string,
@@ -28,12 +28,26 @@ type AppMetricaConfig = {
   // Only iOS
   activationAsSessionStart?: boolean,
   sessionsAutoTracking?: boolean,
-}
+};
+
+type FloorType = "male" | "female";
+
+type UserProfileConfig = {
+  name: string,
+  floor?: FloorType,
+  age: number,
+  isNotification?: boolean,
+  isUsedHousingSearch?: boolean,
+  isAddObjectFavorites?: boolean,
+  isStartedBookingProcess?: boolean,
+  isSuccessBooking?: boolean,
+  isSuccessRegistered?: boolean,
+};
 
 type PreloadInfo = {
   trackingId: string,
   additionalInfo?: Object,
-}
+};
 
 type Location = {
   latitude: number,
@@ -42,15 +56,30 @@ type Location = {
   accuracy?: number,
   course?: number,
   speed?: number,
-  timestamp?: number
-}
+  timestamp?: number,
+};
 
-type AppMetricaDeviceIdReason = 'UNKNOWN' | 'NETWORK' | 'INVALID_RESPONSE';
+type AppMetricaDeviceIdReason = "UNKNOWN" | "NETWORK" | "INVALID_RESPONSE";
 
 export default {
-
   activate(config: AppMetricaConfig) {
     AppMetrica.activate(config);
+  },
+
+  initPush(token = "") {
+    if (Platform.OS === "android") {
+      AppMetrica.initPush();
+    } else {
+      AppMetrica.initPush(token);
+    }
+  },
+
+  getToken() {
+    return AppMetrica.getToken();
+  },
+
+  reportUserProfile(config: UserProfileConfig) {
+    AppMetrica.reportUserProfile(config);
   },
 
   // Android
@@ -82,7 +111,9 @@ export default {
     AppMetrica.reportReferralUrl(referralUrl);
   },
 
-  requestAppMetricaDeviceID(listener: (deviceId?: String, reason?: AppMetricaDeviceIdReason) => void) {
+  requestAppMetricaDeviceID(
+    listener: (deviceId?: String, reason?: AppMetricaDeviceIdReason) => void
+  ) {
     AppMetrica.requestAppMetricaDeviceID(listener);
   },
 
